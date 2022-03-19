@@ -58,3 +58,9 @@ export function isAsyncFunction<T extends MemoizeCallback | MemoizeAsyncCallback
 //     }.constructor;
 //     return fn instanceof generatorFunction;
 // }
+
+
+
+let a: boolean;
+
+a = true;

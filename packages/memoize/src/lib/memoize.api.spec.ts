@@ -295,4 +295,44 @@ describe('Memoize - all default APIs should work as expected', () => {
             expect(memoizedTime).toBeGreaterThan(memoizedAsyncRecursiveTime);
         }
     });
+    it('Example Test', () => {
+        let actualCalls = 0;
+        function testFunction(a: number, b: number) {
+            actualCalls++;
+            return a + b;
+        }
+        const a = 10;
+        console.log('Theoretical no. of function calls with no memoization: ' + a * a * a);
+        const memoizedTestFunction = memoize(testFunction);
+        for (let k = 0; k < a; k++) {
+            for (let i = 0; i < a; i++) {
+                for (let j = 0; j < a; j++) {
+                    memoizedTestFunction(i, j);
+                }
+            }
+        }
+
+        console.log('No. of function calls with memoization: ' + actualCalls);
+    });
+
+    it('Example Test 2', () => {
+        let actualCalls = 0;
+        const fib = memoize(async (num: number): Promise<number> => {
+            actualCalls++;
+            if (num < 2) {
+                return Promise.resolve(num);
+            } else {
+                return (await fib(num - 1)) + (await fib(num - 2));
+            }
+        });
+        const a = 10;
+
+        for (let k = 0; k < a; k++) {
+            for (let j = 0; j < a; j++) {
+                fib(j);
+            }
+        }
+
+        console.log('No. of function calls with memoization: ' + actualCalls);
+    });
 });

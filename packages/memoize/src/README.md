@@ -2,6 +2,21 @@
 
 Fastest memoize library available.
 
+## Table of contents
+
+- [@OSW/Memoize](#oswmemoize)
+  - [Table of contents](#table-of-contents)
+  - [Features:](#features)
+  - [Usage](#usage)
+    - [API](#api)
+    - [Options](#options)
+  - [Example](#example)
+  - [Building](#building)
+  - [Running unit tests](#running-unit-tests)
+- [Roadmap](#roadmap)
+  - [Nice to have](#nice-to-have)
+- [Limitations](#limitations)
+
 ## Features:
 
 -   Simple and fully typed API
@@ -14,7 +29,57 @@ Fastest memoize library available.
     -   1 KB gzipped and minified with bundled dependencies
 -   Compatible with all module systems available - ESM, CJS, AMD, System, UMD, etc.
 
-## API
+## Usage
+
+### API
+
+Memoizing a usual non recursive function:
+
+```ts
+const memoizedFunction = memoize(yourFunction);
+memoizedFunction(param1,param2,...);
+```
+If the function you're trying to memoize proves to be more of a headache than anticipated there are more direct methods of accomplishing this task, and options that will be explained.
+
+For recursive functions:
+
+```ts
+const memoizedFunction = memoize(yourFunction);
+memoizedFunction(param1,param2,...);
+```
+
+### Options
+
+| Option                                              | Description                                                                                                                                     | Usage                                                                                                                               |
+|-----------------------------------------------------|-------------------------------------------------------------------------------------------------------------------------------------------------|-------------------------------------------------------------------------------------------------------------------------------------|
+| async :   bool                                      | Sets the type of function   (sync/async)                                                                                                        |                                                                                                                                     |
+| recursive   : bool                                  | Sets the type of function   (recursive/non-recursive)                                                                                           |                                                                                                                                     |
+| thisArg   : any                                     | Sets the "this"   argument of the function. Must be used for methods, inside the class.                                                         | memoizedMethod =   memoize(this.yourMethod, { thisArg: this });                                                                     |
+| stringify                                           | No clue how this works                                                                                                                          |                                                                                                                                     |
+| store :   IMemoizeStoreOptions                      | Custom store that can be used   externally. Defaults to: Map                                                                                    | const yourStore = new   Map();<br>     memoizedFunction = memoize(yourFunction, { store: yourStore });                              |
+| size :   IMemoizeStoreSize   *                      |  Size options - Defaults to: undefined -   infinite size                                                                                        | memoizedFunction =   memoize(yourFunction, { size: { max: 2, removeStrategy: 'clear'   });                                          |
+| time :   IMemoizeStoreTime   **                     | Storage time options. Defaults   to: undefined - infinite time span                                                                             | const store = new MemoizeStore(   time: { max: 3,period: 1, unit: 's' } );<br>     memoizedFunction = memoize(yourFunction, store); |
+
+*For size there is:
+
+| Field                                               | Description                                                                                                                                     | Usage                                                                 |
+|-----------------------------------------------------|-------------------------------------------------------------------------------------------------------------------------------------------------|-----------------------------------------------------------------------|
+| size.max   : number                                 | Maximum number of entries   allowed in the store                                                                                                | const store = new MemoizeStore(   size: { max: 2 });                  |
+| size.removeStrategy   : IMemoizeStoreRemoveStrategy |  Remove strategy if the storage is full.   Defaults to: 'oldest' which enforces a LRU caching strategy. Available   options 'clear' \| 'oldest' | const store = new MemoizeStore(   size: { removeStrategy: 'clear' }); |
+
+**For time there is:
+
+| Field                                | Description                                                                                         | Usage                                                    |
+|--------------------------------------|-----------------------------------------------------------------------------------------------------|----------------------------------------------------------|
+| time.max   : number                  | Maximum time allowed. Defaults   to: 'NaN'                                                          | const store = new MemoizeStore(   time: { max: 3 } );    |
+| time.period   : number               | Periodically clear the expired   entries. Uses the same time unit as `max` - Defaults to undefined  | const store = new MemoizeStore(   time: { period: 1} );  |
+| time.unit   : IMemoizeStoreTimeUnits | Time unit - Defaults to: 'ms'.   Available options 'ms', 's', 'm', 'h', 'd'                         | const store = new MemoizeStore(   time: { unit: 's' } ); |
+
+## Example
+
+```ts
+
+```
 
 ## Building
 

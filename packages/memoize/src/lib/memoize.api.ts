@@ -18,6 +18,8 @@ export function memoizeLast<T extends MemoizeCallback | MemoizeAsyncCallback>(
 ) {
     return memoize(callback, { ...options, size: { max: 1 } });
 }
+
+/** All in one memoization function, selects the correct function for the options given */
 export function memoize<
     T extends MemoizeCallback | MemoizeAsyncCallback,
     R extends MemoizedFunction<T> | MemoizedAsyncFunction<T> = T extends MemoizeCallback

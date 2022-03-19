@@ -8,11 +8,12 @@ export interface IMemoizeStore<T = unknown> {
     /** Clears the entire store */
     clear: () => void;
 }
-
 export interface IMemoizeStoreMetadata {
+    /** Stores start date in unix time?? */
     addedOn: number;
 }
 
+/** User defined storage container */
 export interface IMemoizeStoreOptions<T = unknown> {
     /** Custom store that can be used externally. Defaults to: Map */
     store?: IMemoizeStore<T>;
@@ -22,6 +23,7 @@ export interface IMemoizeStoreOptions<T = unknown> {
     time?: IMemoizeStoreTime;
 }
 
+/** User defined storage capacity */
 export interface IMemoizeStoreSize {
     /** Maximum number of entries allowed in the store. Defaults to: 'NaN' */
     max: number;
@@ -29,6 +31,7 @@ export interface IMemoizeStoreSize {
     removeStrategy?: IMemoizeStoreRemoveStrategy;
 }
 
+/** User defined storage lifespan */
 export interface IMemoizeStoreTime {
     /** Maximum time allowed. Defaults to: 'NaN' */
     max: number;
